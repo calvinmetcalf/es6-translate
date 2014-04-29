@@ -1,6 +1,8 @@
 var detective = require('detective');
-var template = require('./template.hbs');
-
+var fs = require('fs');
+var rawTemplate = fs.readFileSync('./template.hbs').toString();
+var Handlebars = require('handlebars');
+var template = Handlebars.compile(rawTemplate);
 exports.translate = function (load) {
   var things = {};
   things.code = load.source;
