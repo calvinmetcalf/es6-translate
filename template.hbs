@@ -1,0 +1,19 @@
+require.map = new Map();
+{{#each require}}
+  module ___id_{{name}} from '{{path}}';
+  require.map.set('{{path}}', ___id_{{name}});
+{{/each}}
+function require(thing) {
+  var mod = require.map.get(thing);
+  if (mod.default) {
+    return mod.default;
+  } else {
+    return mod;
+  }
+}
+var module = {};
+var exports = module.exports = {};
+
+{{{code}}}
+
+exports default module.exports;
