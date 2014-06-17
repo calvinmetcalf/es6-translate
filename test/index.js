@@ -11,20 +11,42 @@ test('control', function (t) {
   });
 });
 test('actual translation', function (t) {
-  t.plan(1);
-  System.translate = es6.translate;
-  System.import('test/cj1').then(function(m) {
-    t.equals(m.default(), 'bat', 'my translations should work');
-  }, function (err) {
-    t.error(err);
+  var _translate = System.translate;
+  t.test('test', function (t) {
+    t.plan(1);
+    System.translate = es6.translate;
+    System.import('test/cj1').then(function(m) {
+      t.equals(m.default(), 'bat', 'my translations should work');
+    }, function (err) {
+      t.error(err);
+    });
+  });
+  t.test('cleanup', function (t) {
+    System.translate = _translate;
+    t.end();
   });
 });
 
 test('works with null', function (t) {
+  var _translate = System.translate;
+  t.test('test', function (t) {
+    t.plan(1);
+    System.translate = es6.translate;
+    System.import('test/null1').then(function(m) {
+      t.equals(m.default.nullThing, null, 'null default exports should work');
+    }, function (err) {
+      t.error(err);
+    });
+  });
+  t.test('cleanup', function (t) {
+    System.translate = _translate;
+    t.end();
+  });
+});
+test('control should still work', function (t) {
   t.plan(1);
-  System.translate = es6.translate;
-  System.import('test/null1').then(function(m) {
-    t.equals(m.default.nullThing, null, 'null default exports should work');
+  System.import('test/mod1').then(function(m) {
+    t.equals(m.default(), 'bar', 'es6 modules still work');
   }, function (err) {
     t.error(err);
   });

@@ -16,3 +16,17 @@ exports.translate = function (load) {
   });
   return template(things);
 };
+
+exports.patch = function (System) {
+  var _import = System.import;
+  System.import = function () {
+    return _import.apply(this, arguments).then(function (m) {
+      if ('default' in m) {
+        return m.default;
+      } else {
+        return m;
+      }
+    });
+  };
+  System.translate = exports.translate;
+};
