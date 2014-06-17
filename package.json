@@ -1,6 +1,6 @@
 {
   "name": "es6-translate",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Use Common.js Modules as ES6 modules",
   "main": "index.js",
   "scripts": {
