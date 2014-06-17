@@ -1,7 +1,8 @@
 var es6 = require('../');
 var test = require('tape');
-var System = require('es6-module-loader').System;
-
+var es6ModuleLoader = require('es6-module-loader');
+var System = es6ModuleLoader.System;
+var Loader = es6ModuleLoader.Loader;
 test('control', function (t) {
   t.plan(1);
   System.import('test/mod1').then(function(m) {
@@ -49,5 +50,39 @@ test('control should still work', function (t) {
     t.equals(m.default(), 'bar', 'es6 modules still work');
   }, function (err) {
     t.error(err);
+  });
+});
+test('human patch', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System, Loader);
+  Sys.import('test/cj1').then(function(m) {
+    t.equals(m(), 'bat', 'es6 modules still work');
+  }, function (err) {
+    t.error(err);
+  });
+});
+test('control should still work', function (t) {
+  t.plan(1);
+  System.import('test/mod1').then(function(m) {
+    t.equals(m.default(), 'bar', 'es6 modules still work');
+  }).catch(function (err) {
+    t.error(err);
+  });
+});
+test('monkey patch', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System);
+  Sys.import('test/cj1').then(function(m) {
+    t.equals(m(), 'bat', 'es6 modules still work');
+  }, function (err) {
+    t.error(err);
+  });
+});
+test('control should fail', function (t) {
+  t.plan(1);
+  System.import('test/mod1').then(function(m) {
+    t.equals(m.default(), 'bar', 'es6 modules still work');
+  }).catch(function (err) {
+    t.ok(true, 'error is thrown');
   });
 });

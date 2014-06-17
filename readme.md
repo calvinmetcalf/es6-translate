@@ -37,3 +37,25 @@ from the console
 ```bash
 node index.js # prints baz
 ```
+
+there is also a patch method that also updates System.import to always return the default value (because that's all that's ever exported).
+
+```js
+var es6Translate = require('es6-translate');
+var System = require('es6-module-loader').System;
+es6Translate.patch(System);
+System.import('lib1').then(function(m) {
+  console.log(m());
+});
+```
+
+or if you don't want to mess with global System object pass in Loader too
+
+```js
+var es6Translate = require('es6-translate');
+var es6ModuleLoader = require('es6-module-loader');
+var Sys = es6Translate.patch(es6ModuleLoader.System, es6ModuleLoader.Loader);
+Sys.import('lib1').then(function(m) {
+  console.log(m());
+});
+```

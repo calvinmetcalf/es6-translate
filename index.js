@@ -17,9 +17,15 @@ exports.translate = function (load) {
   return template(things);
 };
 
-exports.patch = function (System) {
-  var _import = System.import;
-  System.import = function () {
+exports.patch = function (System, Loader) {
+  var Sys = System;
+  if (Loader) {
+    Sys = new Loader(System);
+    Sys.baseURL = System.baseURL;
+    Sys.paths = System.paths;
+  }
+  var _import = Sys.import;
+  Sys.import = function () {
     return _import.apply(this, arguments).then(function (m) {
       if ('default' in m) {
         return m.default;
@@ -28,5 +34,6 @@ exports.patch = function (System) {
       }
     });
   };
-  System.translate = exports.translate;
+  Sys.translate = exports.translate;
+  return Sys;
 };
