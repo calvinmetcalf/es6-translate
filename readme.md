@@ -1,7 +1,7 @@
 es6-translate [![Build Status](https://travis-ci.org/calvinmetcalf/es6-translate.svg)](https://travis-ci.org/calvinmetcalf/es6-translate)
 ===
 
-Load commonjs modules in an es6 enviroment.
+Load commonjs modules in an es6 enviroment, it **always** returns a default export.
 
 ## Overly convoluted example
 

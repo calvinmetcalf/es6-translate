@@ -5,7 +5,7 @@ require.map = new Map();
 {{/each}}
 function require(thing) {
   var mod = require.map.get(thing);
-  if (mod.default) {
+  if ('default' in mod) {
     return mod.default;
   } else {
     return mod;

@@ -1,0 +1,1 @@
+exports.nullThing = require('./null');

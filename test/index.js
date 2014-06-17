@@ -19,3 +19,13 @@ test('actual translation', function (t) {
     t.error(err);
   });
 });
+
+test('works with null', function (t) {
+  t.plan(1);
+  System.translate = es6.translate;
+  System.import('test/null1').then(function(m) {
+    t.equals(m.default.nullThing, null, 'null default exports should work');
+  }, function (err) {
+    t.error(err);
+  });
+});
