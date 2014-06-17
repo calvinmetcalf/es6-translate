@@ -6,13 +6,13 @@ var template = Handlebars.compile(rawTemplate);
 exports.translate = function (load) {
   var things = {};
   things.code = load.source;
-  things.require = detective(things.code).map(function (item) {
-    return {
-      path: item,
-      name: item.replace(/\W/g, function (a, b) {
-        return '$' + a.charCodeAt();
-      })
-    };
+  var keys = {};
+  things.require = detective(things.code).filter(function (item) {
+    if (keys[item]) {
+      return false;
+    }
+    keys[item] = true;
+    return true;
   });
   return template(things);
 };
