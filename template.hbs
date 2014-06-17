@@ -1,11 +1,10 @@
-require.map = new Map();
 {{#each require}}
-  module ___id_{{name}} from '{{path}}';
-  require.map.set('{{path}}', ___id_{{name}});
+  import '{{.}}';
 {{/each}}
+require.__self = this;
 function require(thing) {
-  var mod = require.map.get(thing);
-  if (mod.default) {
+  var mod = require.__self.get(thing);
+  if ('default' in mod) {
     return mod.default;
   } else {
     return mod;
