@@ -1,4 +1,4 @@
-es6-translate
+es6-translate [![Build Status](https://travis-ci.org/calvinmetcalf/es6-translate.svg)](https://travis-ci.org/calvinmetcalf/es6-translate)
 ===
 
 Load commonjs modules in an es6 enviroment.
