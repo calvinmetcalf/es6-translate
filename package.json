@@ -23,7 +23,8 @@
     "tape": "^2.12.3",
     "browserify": "^3.44.2",
     "testling": "^1.6.1",
-    "traceur": "0.0.39"
+    "traceur": "0.0.39",
+    "es6-module-loader": "^0.6.1"
   },
   "testling": {
     "html": "test.html"

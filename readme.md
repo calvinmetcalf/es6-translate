@@ -1,6 +1,39 @@
 es6-translate
 ===
 
-A es6 module translate hook for turning Common JS modules into es6 modules. Currenlty hampedered by the fact that none of the es6 converters actually impliment this yet. 
+Load commonjs modules in an es6 enviroment.
 
-In theory you should be able to do `System.translate = whateverYouCallThis.translate;``
+## Overly convoluted example
+
+lib1.js
+
+```js
+'use strict';
+var foo = require('./lib2');
+
+module.exports = function () {
+  return foo.bar;
+};
+```
+
+lib2.js
+
+```js
+exports.bar = 'baz';
+```
+
+index.js
+
+```js
+var es6Translate = require('es6-translate');
+var System = require('es6-module-loader').System;
+System.translate = es6Translate.translate;
+System.import('lib1').then(function(m) {
+  console.log(m.default());
+});
+```
+from the console
+
+```bash
+node index.js # prints baz
+```
