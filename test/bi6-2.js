@@ -1,5 +1,5 @@
-import fs from 'fs';
+import {readFileSync} from 'fs';
 
 export default function () {
-  return fs.readFileSync('./test/null.js', {encoding: 'utf8'});
+  return readFileSync('./test/null.js', {encoding: 'utf8'});
 };

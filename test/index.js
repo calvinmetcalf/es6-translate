@@ -88,6 +88,14 @@ test('built ins should work', function (t) {
     t.error(err);
   });
 });
+test('buffer', function (t) {
+  t.plan(1);
+  System.import('test/buffer').then(function (buff) {
+    t.ok(Buffer.isBuffer(buff.default()), 'should be a buffer');
+  }).catch(function (err) {
+    t.error(err);
+  });
+});
 test('monkey patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System);
