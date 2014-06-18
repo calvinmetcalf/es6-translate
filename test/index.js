@@ -69,9 +69,19 @@ test('control should still work', function (t) {
     t.error(err);
   });
 });
+test('built ins should work in es6', function (t) {
+  t.plan(1);
+  es6.populate(System);
+  System.import('test/bi-6').then(function(m) {
+    t.equals(m.foo, 'module.exports = null;', 'es6 modules still work');
+  }).catch(function (err) {
+    t.error(err);
+  });
+});
 test('built ins should work', function (t) {
   t.plan(1);
   var Sys = es6.patch(System, Loader);
+  es6.populate(Sys);
   Sys.import('./bi').then(function(m) {
     t.equals(m.foo, 'module.exports = null;', 'es6 modules still work');
   }).catch(function (err) {

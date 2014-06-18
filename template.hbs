@@ -13,9 +13,6 @@ require.map = new Map();
   module ___id_{{name}} from '{{path}}';
   require.map.set('{{path}}', ___id_{{name}});
 {{/each}}
-{{#each core}}
-  require.map.set('{{name}}', _require('{{name}}'));
-{{/each}}
 var module = {};
 var exports = module.exports = {};
 
