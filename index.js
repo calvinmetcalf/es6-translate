@@ -3,6 +3,8 @@ var fs = require('fs');
 var rawTemplate = fs.readFileSync('./template.hbs').toString();
 var Handlebars = require('handlebars');
 var template = Handlebars.compile(rawTemplate);
+var path = require('path');
+var resolve = require('resolve');
 exports.translate = function (load) {
   var things = {};
   things.code = load.source;
@@ -35,5 +37,19 @@ exports.patch = function (System, Loader) {
     });
   };
   Sys.translate = exports.translate;
+  Sys.locate = exports.locate;
+  Sys.normalize = function normalize(name, parentName, parentAddress) {
+    this.lastPath = path.dirname(parentAddress);
+    return name;
+  };
   return Sys;
+};
+
+exports.locate = function (path) {
+  if (process.browser) {
+    return this.baseURL + '/' + path.name + '.js';
+  }
+  return resolve.sync(path.name, {
+    basedir: this.lastPath
+  });
 };

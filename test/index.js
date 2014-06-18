@@ -55,7 +55,7 @@ test('control should still work', function (t) {
 test('human patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System, Loader);
-  Sys.import('test/cj1').then(function(m) {
+  Sys.import('./test/cj1').then(function(m) {
     t.equals(m(), 'bat', 'es6 modules still work');
   }, function (err) {
     t.error(err);
@@ -72,7 +72,7 @@ test('control should still work', function (t) {
 test('monkey patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System);
-  Sys.import('test/cj1').then(function(m) {
+  Sys.import('./test/cj1').then(function(m) {
     t.equals(m(), 'bat', 'es6 modules still work');
   }, function (err) {
     t.error(err);
