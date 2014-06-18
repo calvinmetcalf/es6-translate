@@ -14,7 +14,8 @@
     "handlebars": "^1.3.0",
     "brfs": "^1.1.1",
     "es3ify": "^0.1.3",
-    "resolve": "^0.7.1"
+    "resolve": "^0.7.1",
+    "lie": "^2.7.6"
   },
   "browserify": {
     "transform": [

@@ -5,6 +5,7 @@ var Handlebars = require('handlebars');
 var template = Handlebars.compile(rawTemplate);
 var path = require('path');
 var resolve = require('resolve');
+var Promise = require('lie');
 exports.translate = function (load) {
   var things = {};
   things.code = load.source;
@@ -37,19 +38,39 @@ exports.patch = function (System, Loader) {
     });
   };
   Sys.translate = exports.translate;
+  Sys.normalize = exports.normalize;
   Sys.locate = exports.locate;
-  Sys.normalize = function normalize(name, parentName, parentAddress) {
-    this.lastPath = path.dirname(parentAddress);
-    return name;
-  };
   return Sys;
 };
 
-exports.locate = function (path) {
+exports.normalize = function (name, parentName, parentAddress) {
   if (process.browser) {
-    return this.baseURL + '/' + path.name + '.js';
+    return name;
   }
-  return resolve.sync(path.name, {
-    basedir: this.lastPath
-  });
+  if (parentAddress) {
+    return new Promise(function (fulfill, reject) {
+      resolve(name, {
+        basedir: path.dirname(parentAddress)
+      }, function (err, resp) {
+        if (err) {
+          reject(err);
+        } else {
+          fulfill(resp);
+        }
+      });
+    });
+  }
+  return new Promise(function (fulfill, reject) {
+      resolve(name, function (err, resp) {
+        if (err) {
+          reject(err);
+        } else {
+          fulfill(resp);
+        }
+      });
+    });
 };
+
+exports.locate = function (path) {
+  return path.name;
+}
