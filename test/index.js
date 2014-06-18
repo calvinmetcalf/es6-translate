@@ -55,7 +55,7 @@ test('control should still work', function (t) {
 test('human patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System, Loader);
-  Sys.import('./test/cj1').then(function(m) {
+  Sys.import('./cj1').then(function(m) {
     t.equals(m(), 'bat', 'es6 modules still work');
   }, function (err) {
     t.error(err);
@@ -69,10 +69,19 @@ test('control should still work', function (t) {
     t.error(err);
   });
 });
+test('built ins should work', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System, Loader);
+  Sys.import('./bi').then(function(m) {
+    t.equals(m.foo, 'module.exports = null;', 'es6 modules still work');
+  }).catch(function (err) {
+    t.error(err);
+  });
+});
 test('monkey patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System);
-  Sys.import('./test/cj1').then(function(m) {
+  Sys.import('./cj1').then(function(m) {
     t.equals(m(), 'bat', 'es6 modules still work');
   }, function (err) {
     t.error(err);

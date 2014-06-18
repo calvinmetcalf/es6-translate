@@ -2,7 +2,7 @@
   "name": "es6-translate",
   "version": "0.2.1",
   "description": "Yo dawg I heard you liked modules, so I made a module to translate your modules into modules.",
-  "main": "index.js",
+  "main": "./lib",
   "scripts": {
     "test": "node test/index.js",
     "build": "browserify -s es6Translate . > build.js"
