@@ -1,6 +1,6 @@
 {
   "name": "es6-translate",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Yo dawg I heard you liked modules, so I made a module to translate your modules into modules.",
   "main": "./lib",
   "scripts": {
@@ -36,6 +36,6 @@
     "url": "https://github.com/calvinmetcalf/es6-translate"
   },
   "browser": {
-    "./lib/populate.js":"./lib/noop.js"
+    "./lib/populate.js": "./lib/noop.js"
   }
 }
