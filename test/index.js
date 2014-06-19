@@ -96,6 +96,15 @@ test('buffer', function (t) {
     t.error(err);
   });
 });
+test('mix', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System, Loader);
+  Sys.import('./mix1').then(function (mix) {
+    t.equals(mix.foo(), 9, 'mixing cjs and es6 should work');
+  }).catch(function (err) {
+    t.error(err);
+  });
+});
 test('monkey patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System);
