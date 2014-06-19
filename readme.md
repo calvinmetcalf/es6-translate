@@ -60,7 +60,7 @@ Sys.import('lib1').then(function(m) {
 });
 ```
 
-To populate a loader with all of the node.js built in modules use
+To populate a loader with all of the node.js built in modules use (patch does this by default)
 
 ```js
 var es6Translate = require('es6-translate');
