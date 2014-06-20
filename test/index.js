@@ -3,6 +3,14 @@ var test = require('tape');
 var es6ModuleLoader = require('es6-module-loader');
 var System = es6ModuleLoader.System;
 var Loader = es6ModuleLoader.Loader;
+test('circular references', function (t) {
+  t.plan(1);
+  System.import('test/a').then(function(m) {
+    t.ok(true, 'circular references');
+  }, function (err) {
+    t.error(err);
+  });
+});
 test('control', function (t) {
   t.plan(1);
   System.import('test/mod1').then(function(m) {
@@ -119,14 +127,7 @@ test('monkey patch', function (t) {
     t.error(err);
   });
 });
-test('circular references', function (t) {
-  t.plan(1);
-  System.import('./a').then(function(m) {
-    t.ok(true, 'circular references');
-  }, function (err) {
-    t.error(err);
-  });
-});
+
 test('control should fail', function (t) {
   t.plan(1);
   System.import('test/mod1').then(function(m) {
