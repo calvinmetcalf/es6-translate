@@ -17,8 +17,10 @@ test('actual translation', function (t) {
     t.plan(1);
     System.translate = es6.translate;
     System.import('test/cj1').then(function(m) {
+      console.log('first', m);
       t.equals(m.default(), 'bat', 'my translations should work');
-    }, function (err) {
+    }).catch(function (err) {
+      console.log('inside', err);
       t.error(err);
     });
   });
@@ -113,6 +115,14 @@ test('monkey patch', function (t) {
   var Sys = es6.patch(System);
   Sys.import('./cj1').then(function(m) {
     t.equals(m(), 'bat', 'es6 modules still work');
+  }, function (err) {
+    t.error(err);
+  });
+});
+test('circular references', function (t) {
+  t.plan(1);
+  System.import('./a').then(function(m) {
+    t.ok(true, 'circular references');
   }, function (err) {
     t.error(err);
   });
