@@ -27,9 +27,9 @@
   "devDependencies": {
     "tape": "^2.12.3",
     "browserify": "^3.44.2",
-    "es6-module-loader": "^0.6.1",
     "traceur": "0.0.45",
-    "tap-spec": "^0.2.0"
+    "tap-spec": "^0.2.0",
+    "es6-module-loader": "^0.6.1"
   },
   "repository": {
     "type": "git",
