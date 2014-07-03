@@ -12,36 +12,30 @@ test('control', function (t) {
   });
 });
 test('actual translation', function (t) {
-  var _translate = System.translate;
-  t.test('test', function (t) {
-    t.plan(1);
-    System.translate = es6.translate;
-    System.import('test/cj1').then(function(m) {
-      t.equals(m.default(), 'bat', 'my translations should work');
-    }, function (err) {
-      t.error(err);
-    });
-  });
-  t.test('cleanup', function (t) {
-    System.translate = _translate;
-    t.end();
+  var Sys = es6.patch(System, Loader);
+  t.plan(1);
+  Sys.import('./cj1').then(function(m) {
+    t.equals(m(), 'bat', 'my translations should work');
+  }).catch(function (err) {
+    t.error(err);
   });
 });
-
-test('works with null', function (t) {
-  var _translate = System.translate;
-  t.test('test', function (t) {
-    t.plan(1);
-    System.translate = es6.translate;
-    System.import('test/null1').then(function(m) {
-      t.equals(m.default.nullThing, null, 'null default exports should work');
-    }, function (err) {
-      t.error(err);
-    });
+test('circular', function (t) {
+  var Sys = es6.patch(System, Loader);
+  t.plan(1);
+  Sys.import('./a').then(function(m) {
+    t.equals(m.obj.val, 'asdf', 'it works');
+  }).catch(function (err) {
+    t.error(err);
   });
-  t.test('cleanup', function (t) {
-    System.translate = _translate;
-    t.end();
+});
+test('works with null', function (t) {
+  var Sys = es6.patch(System, Loader);
+  t.plan(1);
+  Sys.import('./null1').then(function(m) {
+    t.equals(m.nullThing, null, 'null default exports should work');
+  }, function (err) {
+    t.error(err);
   });
 });
 test('control should still work', function (t) {
