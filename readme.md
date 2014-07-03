@@ -27,7 +27,7 @@ index.js
 ```js
 var es6Translate = require('es6-translate');
 var System = require('es6-module-loader').System;
-System.translate = es6Translate.translate;
+System.instantiate = es6Translate.instantiate;
 System.import('lib1').then(function(m) {
   console.log(m.default());
 });
@@ -38,7 +38,7 @@ from the console
 node index.js # prints baz
 ```
 
-there is also a patch method that also updates System.import to always return the default value (because that's all that's ever exported).
+there is also a patch method that also updates System.import to always return the default value (because that's all that's ever exported) and in node fixes the path resolution.
 
 ```js
 var es6Translate = require('es6-translate');
