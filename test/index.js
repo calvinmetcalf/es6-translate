@@ -65,6 +65,15 @@ test('control should still work', function (t) {
   });
 });
 
+test('json patch', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System, Loader);
+  Sys.import('./json').then(function(m) {
+    t.equals(m, 'isJSON', 'get json from es6 modules');
+  }, function (err) {
+    t.error(err);
+  });
+});
 test('built ins should work in es6', function (t) {
   t.plan(1);
   var Sys = es6.patch(System, Loader);
