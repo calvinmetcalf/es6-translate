@@ -60,7 +60,26 @@ Sys.import('lib1').then(function(m) {
 });
 ```
 
-Inside CommonJS modules, if there is a key named `default` in a module it is assumed to be the default export and just that is imported, to avoid this behavior pass a truthy second argument to require, ex
+## Usage
+
+Common JS modules may be loaded from ES6 ones and vice versa, all CommonJS modules export a default export so 
+
+```js
+import name from '/path/to/common.js'
+```
+
+will always work, if the commonjs one does not redefine module exports then named exports will be available as well.
+
+```js
+//common.js
+export.foo = 'bar';
+
+//es6.js
+import {foo} from './common';
+//foo === 'bar';
+```
+
+Inside CommonJS modules, if there is a key named `default` in a module it is assumed to be the default export and just that is imported, to avoid this behavior think of default exports as single exports and yell at anyone that violates that or pass a truthy second argument to require, ex
 
 ```js
 //export.js

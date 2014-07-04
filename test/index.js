@@ -65,7 +65,7 @@ test('control should still work', function (t) {
   });
 });
 
-test('json patch', function (t) {
+test('json path', function (t) {
   t.plan(1);
   var Sys = es6.patch(System, Loader);
   Sys.import('./json').then(function(m) {
@@ -74,6 +74,17 @@ test('json patch', function (t) {
     t.error(err);
   });
 });
+
+test('named exports', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System, Loader);
+  Sys.import('./namedEs6').then(function(m) {
+    t.deepEquals(m, ['calvin', 'hobbes'], 'get names from cjs module');
+  }, function (err) {
+    t.error(err);
+  });
+});
+
 test('built ins should work in es6', function (t) {
   t.plan(1);
   var Sys = es6.patch(System, Loader);
