@@ -59,3 +59,26 @@ Sys.import('lib1').then(function(m) {
   console.log(m());
 });
 ```
+
+Inside CommonJS modules, if there is a key named `default` in a module it is assumed to be the default export and just that is imported, to avoid this behavior pass a truthy second argument to require, ex
+
+```js
+//export.js
+var val;
+exports.default = 9;
+exports.get = function () {
+	if (typeof val !== 'undefined') {
+		return val;
+	}
+	return this.default;
+}
+exports.set = function (nval) {
+	val = nval;
+}
+
+//import.js
+var mod = require('./export');
+// mod === 9;
+var mod = require('./export', true);
+// does what you want it to do.
+```
