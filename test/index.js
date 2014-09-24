@@ -102,6 +102,17 @@ test('mix', function (t) {
     t.error(err);
   });
 });
+test('side effects', function (t) {
+  t.plan(1);
+  var Sys = es6.patch(System, Loader);
+  Sys.import('./se').then(function (side) {
+    return side();
+  }).then(function (side) {
+    t.notOk(side, 'should not get called');
+  }).catch(function (err) {
+    t.ok(true);
+  });
+});
 test('monkey patch', function (t) {
   t.plan(1);
   var Sys = es6.patch(System);
