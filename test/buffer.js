@@ -1,3 +1,3 @@
 export default function () {
-  return new Buffer('123');
+  return Buffer.from('123');
 }
